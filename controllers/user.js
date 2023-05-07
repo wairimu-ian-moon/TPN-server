@@ -89,8 +89,8 @@ userRouter.patch("/update/:id/profile", middleware.authenticateToken, async (req
     const user = await User.findOne({_id: id})
     const options = {new: true}
     if (user.role === "user" || "admin") {
-        const {username, email} = req.body
-        const updatedUser = await User.findByIdAndUpdate(id, {username, email, updatedAt: new Date().toLocaleDateString()}, options)
+        const {username, email, image} = req.body
+        const updatedUser = await User.findByIdAndUpdate(id, {username, email, image, updatedAt: new Date().toLocaleDateString()}, options)
         res.status(200).json({
             message: "Successfully updated your details",
             status: "Success",
