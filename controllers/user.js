@@ -7,8 +7,12 @@ const middleware = require("../utils/middleware")
 
 userRouter.get('/', middleware.authenticateToken , async (req, res) => {
     const users = await User.find({}).populate("blogs")
-    console.log(users.blogs)
     res.send(users)
+})
+userRouter.get("/user/:userId", middleware.authenticateToken, async (req, res) => {
+    const {userId} = req.params
+    const user = await User.findById({_id: userId})
+    res.json(user)
 })
 userRouter.post("/", async (req, res) => {
     const {username, email, password} = req.body
